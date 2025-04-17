@@ -10,22 +10,22 @@ export class UserEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ name: 'name', nullable: false })
+  @Column({ name: 'name' })
   name: string;
 
-  @Column({ name: 'email', nullable: false })
+  @Column({ name: 'email' })
   email: string;
 
-  @Column({ name: 'phone' })
-  phone: string;
+  @Column({ name: 'phone', nullable: true })
+  phone?: string;
 
-  @Column({ name: 'cpf', nullable: false })
+  @Column({ name: 'cpf' })
   cpf: string;
 
-  @Column({ name: 'password', nullable: false })
+  @Column({ name: 'password' })
   password: string;
 
-  @Column({ name: 'type_user', nullable: false })
+  @Column({ name: 'type_user' })
   typeUser: number;
 
   @CreateDateColumn({ name: 'created_at' })
