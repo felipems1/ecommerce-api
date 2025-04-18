@@ -16,8 +16,8 @@ export class UserEntity {
   @Column({ name: 'email' })
   email: string;
 
-  @Column({ name: 'phone', nullable: true })
-  phone?: string;
+  @Column({ name: 'phone' })
+  phone: string;
 
   @Column({ name: 'cpf' })
   cpf: string;
