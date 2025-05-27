@@ -1,6 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { hash } from 'bcrypt';
+import { isUUID } from 'class-validator';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UserEntity } from './entities/user.entity';
@@ -26,5 +31,23 @@ export class UserService {
 
   async getAllUser(): Promise<UserEntity[]> {
     return this.userRepository.find();
+  }
+
+  async getUserById(userId: string): Promise<UserEntity> {
+    if (!isUUID(userId)) {
+      throw new BadRequestException('Invalid UUID format');
+    }
+
+    const user = await this.userRepository.findOne({
+      where: {
+        id: userId,
+      },
+    });
+
+    if (!user) {
+      throw new NotFoundException('UserId Not Found');
+    }
+
+    return user;
   }
 }
